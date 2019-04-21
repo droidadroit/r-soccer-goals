@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html style="min-width:450px; min-height:400px;">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+
+<body>
+
+	<div id="app">
+
+		<form id="searchForm" @submit.prevent="processForm">
+			<div class="select">
+				<select class="form-control dropdown" v-model="sortBy">
+					<option class="dropdown-item" value="new">New</option>
+					<option class="dropdown-item" value="relevance">Relevance</option>
+					<option class="dropdown-item" value="top">Top</option>
+				</select>
+			</div>
+
+			<div class="search">
+				<input class="search form-control" type="text" name="search" placeholder="filter string (optional)" v-model="filter">
+			</div>
+			
+			<div class="submit">
+				<button type="submit" class="btn btn-small btn-sm"><i class="fa fa-search"></i></button>
+			</div>		
+		</form>
+		
+		<ul>
+			<span v-if="posts.length > 0" class="numResults">Fetched {{posts.length}} goals.</span>
+			<li v-for="post in posts">
+				<div class="info">
+					<h6 class="title">{{post.title}}</h6>
+					<div>
+						<a :href="post.link" v-on:click="openLink(post.link)" @mouseover><span>Video</span></a>
+						<a :href="post.comments" v-on:click="openLink(post.comments)"><span>Comments</span></a>
+						<span>{{post.time}}</span>
+					</div>
+			   	</div>
+			</li>
+		</ul>	
+		
+	</div>
+
+	<script src="js/jquery-3.4.0.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script src="js/app.js" ></script>
+	<script src="js/axios.min.js" ></script>
+</body>
+  					
+</html>

@@ -1,0 +1,77 @@
+#searchForm .select {
+    padding: 10px;
+    float: left;
+}
+
+#searchForm .select .dropdown {
+    width: 110px;
+    height: 35px;
+}
+
+#searchForm .search {
+    padding: 10px;
+    height: 35px;
+    width: 250px;
+    display: inline-block;
+}
+
+
+#searchForm .submit {
+    padding: 10px;
+    padding-inline-start: 0%;
+    float: right;
+}
+
+#searchForm .submit .btn {
+    color: black;
+    background: white
+}
+
+#searchForm .select *, #searchForm .search * {
+    font-size: xx-small;
+    font-weight: bold;
+    color: black;
+}
+
+#app .numResults {
+    font-size: x-small;
+    padding-top: 10px;
+    margin-left: 40px;
+}
+
+#app ul{
+    margin: 0;
+    padding:0px;
+    padding-top: 10px;
+    list-style:none;
+}
+
+#app ul li{
+    padding:10px;
+    margin:10px;
+    background-color: rgb(245, 245, 245);
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    -webkit-box-shadow: 0px 0px 2px #888888;
+    -moz-box-shadow: 0px 0px 2px #888888;
+    box-shadow: 0px 0px 2px #888888;  
+}
+
+li span{
+    font-size:14px;
+    color:black;
+    margin-right:80px;
+}
+
+.title{
+    margin-bottom: 0rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color:black;
+}
+
+::-webkit-input-placeholder {
+    font-size: x-small;
+}
