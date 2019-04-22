@@ -32,7 +32,8 @@ const app = new Vue({
 
     methods: {
         processForm: function() {
-            var vm = this;
+            let vm = this;
+            this.posts = []
             url = 'https://api.reddit.com/r/soccer/search?q=';
             flairs = '(flair:media OR flair:Mirror)';
             titles = this.filter.replace(/\s/g, '').length === 0 ? '' : `AND (${constructQuery(this.filter)})`;
@@ -43,7 +44,6 @@ const app = new Vue({
         },
 
         openLink: function(link) {
-            var vm = this;
             chrome.tabs.create({
                 url: link,
                 active: false

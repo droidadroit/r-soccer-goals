@@ -30,9 +30,11 @@
 			</div>		
 		</form>
 		
-		<ul>
-			<span v-if="posts.length > 0" class="numResults">Fetched {{posts.length}} goals.</span>
-			<li v-for="post in posts">
+		<transition name="slide-fade" tag="span">
+			<p v-if="posts.length > 0" class="numResults">Fetched {{posts.length}} goals.</p>
+		</transition>
+		<transition-group name="list" tag="ul">
+			<li v-for="post in posts" v-bind:key="post" class="list-item">
 				<div class="info">
 					<h6 class="title">{{post.title}}</h6>
 					<div>
@@ -40,9 +42,9 @@
 						<a :href="post.comments" v-on:click="openLink(post.comments)"><span>Comments</span></a>
 						<span>{{post.time}}</span>
 					</div>
-			   	</div>
+				</div>
 			</li>
-		</ul>	
+		</transition-group>
 		
 	</div>
 
