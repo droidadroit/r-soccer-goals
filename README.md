@@ -2,7 +2,7 @@
 
 [Link to the Chrome extension](https://chrome.google.com/webstore/detail/rsoccer-goals/oledoejmoabfeenmmacihejabhmbhdan)
 
-#### Version 0.0.0.2 (Apr 22, 2019)
+#### Version 0.0.0.3 (Apr 22, 2019)
 - Improved the detection of a submission as goal-related by modifying the regex.
 - Domain name of the videos are now visible.
 - Added transitions.
