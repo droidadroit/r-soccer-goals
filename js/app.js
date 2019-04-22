@@ -1,5 +1,5 @@
 let constructQuery = (filter) =>
-    filter.split(/\s+/).map(string => `title:${string}`).join(' AND ');
+    filter.trim().split(/\s+/).map(string => `title:${string}`).join(' AND ');
 
 let getCommentsLink = (link) => `https://reddit.com${link}`
 
@@ -16,7 +16,8 @@ let processData = (rawData) => {
             title: child.data.title,
             comments: getCommentsLink(child.data.permalink), 
             link: child.data.url,
-            time: getDate(child.data.created)
+            time: getDate(child.data.created),
+            domain: child.data.domain
         };
     });
 };

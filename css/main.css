@@ -62,11 +62,14 @@
 li span{
     font-size:14px;
     color:black;
-    margin-right:80px;
+    margin-right:250px;
 }
 
 .title{
     margin-bottom: 0rem;
+}
+
+.title a {
     font-size: 0.8rem;
     font-weight: 500;
     line-height: 1.2;
@@ -74,10 +77,10 @@ li span{
 }
 
 .slide-fade-enter-active {
-    transition: all .3s ease;
+    transition: all .5s ease;
 }
 .slide-fade-leave-active {
-    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-enter, .slide-fade-leave-to {
     transform: translateX(6px);
@@ -85,7 +88,7 @@ li span{
 }
 
 .list-enter-active, .list-leave-active {
-    transition: all .3s;
+    transition: all .5s;
 }
 .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
     opacity: 0;

@@ -31,14 +31,15 @@
 		</form>
 		
 		<transition name="slide-fade" tag="span">
-			<p v-if="posts.length > 0" class="numResults">Fetched {{posts.length}} goals.</p>
+			<p v-if="posts.length > 0" class="numResults">Fetched {{posts.length}} results.</p>
 		</transition>
 		<transition-group name="list" tag="ul">
 			<li v-for="post in posts" v-bind:key="post" class="list-item">
 				<div class="info">
-					<h6 class="title">{{post.title}}</h6>
+					<h6 class="title">
+						<a :href="post.link" v-on:click="openLink(post.link)">{{post.title}}</a>&nbsp;<span style="font-size:xx-small; font-weight:normal;">{{post.domain}}</span>
+					</h6>
 					<div>
-						<a :href="post.link" v-on:click="openLink(post.link)" @mouseover><span>Video</span></a>
 						<a :href="post.comments" v-on:click="openLink(post.comments)"><span>Comments</span></a>
 						<span>{{post.time}}</span>
 					</div>

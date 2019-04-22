@@ -2,7 +2,10 @@
 
 [Link to the Chrome extension](https://chrome.google.com/webstore/detail/rsoccer-goals/oledoejmoabfeenmmacihejabhmbhdan)
 
-Libraries used: Vue.js, Bootstrap4
+#### Version 0.0.0.2 (Apr 22, 2018)
+- Improved the detection of a submission as goal-related by modifying the regex.
+- Domain name of the videos are now visible.
+- Added transitions.
 
 #### Version 0.0.0.1 (Apr 21, 2018)
 - Search for [r/soccer](https://www.reddit.com/r/soccer) posts based on the query string and `sortby` attribute. Fetches the links to the video and comments, and the time of the post.
