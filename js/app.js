@@ -26,7 +26,7 @@ let getQueryForRedditApi = (filter, sortBy) => {
     url = 'https://api.reddit.com/r/soccer/search?q=';
     flairs = '(flair:media OR flair:Mirror)';
     titles = filter.replace(/\s/g, '').length === 0 ? '' : `AND (${constructQuery(filter)})`;
-    return `${url}${flairs}${titles}&restrict_sr=1&sort=${sortBy}&limit=1000`
+    return encodeURI(`${url}${flairs}${titles}&restrict_sr=1&sort=${sortBy}&limit=1000`);
 };
 
 const app = new Vue({
