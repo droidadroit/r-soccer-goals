@@ -9,7 +9,7 @@ let getDate = (timestamp) => {
 };
 
 let processData = (rawData) => {
-    regexes = [/\[[0-9]+\]\s?-\s?[0-9]+/, /[0-9]+\s?-\s?\[[0-9]+\]/, /[0-9]+\s?-\s?[0-9]+/];
+    regexes = [/[\[,\(][0-9]+[\],\)]\s?[-,:]\s?[0-9]+/, /[0-9]+\s?[-,:]\s?[\[,\(][0-9]+[\],\)]/, /[0-9]+\s?[-,:]\s?[0-9]+/];
     children = rawData.data.children.filter(child => regexes.some(regex => regex.test(child.data.title)));
     return children.map(child => {
         return {
@@ -19,6 +19,13 @@ let processData = (rawData) => {
             time: getDate(child.data.created)
         };
     });
+};
+
+let getQueryForRedditApi = (filter, sortBy) => {
+    url = 'https://api.reddit.com/r/soccer/search?q=';
+    flairs = '(flair:media OR flair:Mirror)';
+    titles = filter.replace(/\s/g, '').length === 0 ? '' : `AND (${constructQuery(filter)})`;
+    return `${url}${flairs}${titles}&restrict_sr=1&sort=${sortBy}&limit=1000`
 };
 
 const app = new Vue({
@@ -34,11 +41,8 @@ const app = new Vue({
         processForm: function() {
             let vm = this;
             this.posts = []
-            url = 'https://api.reddit.com/r/soccer/search?q=';
-            flairs = '(flair:media OR flair:Mirror)';
-            titles = this.filter.replace(/\s/g, '').length === 0 ? '' : `AND (${constructQuery(this.filter)})`;
             axios
-                .get(`${url}${flairs}${titles}&restrict_sr=1&sort=${this.sortBy}&limit=1000`)
+                .get(getQueryForRedditApi(this.filter, this.sortBy))
                 .then(response => {vm.posts = processData(response.data);})
                 .catch(error => console.log(error));
         },
