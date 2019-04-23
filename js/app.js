@@ -35,13 +35,26 @@ const app = new Vue({
     data: {
         sortBy: 'relevance',
         filter: '',
-        posts: ''
+        posts: '',
+        footer: [
+            {
+                link: 'https://github.com/droidadroit/r-soccer-goals',
+                text: 'Github'
+            },
+            {
+                link: 'https://chrome.google.com/webstore/detail/rsoccer-goals/oledoejmoabfeenmmacihejabhmbhdan',
+                text: 'r/soccer goals'
+            },
+            {
+                link: 'mailto:yashwanth.reddyth@gmail.com?subject=%5Br/soccer%20goals%5D',
+                text: 'Help'
+            }
+        ]
     },
 
     methods: {
         processForm: function() {
             let vm = this;
-            this.posts = []
             axios
                 .get(getQueryForRedditApi(this.filter, this.sortBy))
                 .then(response => {vm.posts = processData(response.data);})

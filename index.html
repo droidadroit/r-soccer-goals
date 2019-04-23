@@ -31,7 +31,7 @@
 		</form>
 		
 		<transition name="slide-fade" tag="span">
-			<p v-if="posts.length > 0" class="numResults">Fetched {{posts.length}} results.</p>
+			<p v-if="typeof(posts) === 'object'" class="numResults">Fetched {{posts.length}} results.</p>
 		</transition>
 		<transition-group name="list" tag="ul">
 			<li v-for="post in posts" v-bind:key="post" class="list-item">
@@ -40,21 +40,24 @@
 						<a :href="post.link" v-on:click="openLink(post.link)">{{post.title}}</a>&nbsp;<span style="font-size:xx-small; font-weight:normal;">{{post.domain}}</span>
 					</h6>
 					<div>
-						<a :href="post.comments" v-on:click="openLink(post.comments)"><span>Comments</span></a>
-						<span>{{post.time}}</span>
+						<a class="fields" :href="post.comments" v-on:click="openLink(post.comments)"><span>Comments</span></a>
+						<span class="fields">{{post.time}}</span>
 					</div>
 				</div>
 			</li>
 		</transition-group>
+
+		<div class="footer">
+			<a v-for="item in footer" :href="item.link" v-on:click="openLink(item.link)">{{item.text}}</a>
+		</div>
 		
 	</div>
 
-	<script src="js/jquery-3.4.0.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/vue.min.js"></script>
 	<script src="js/app.js" ></script>
 	<script src="js/axios.min.js" ></script>
 </body>
-  					
+
 </html>
