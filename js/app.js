@@ -1,6 +1,3 @@
-let constructQuery = (filter) =>
-    filter.trim().split(/\s+/).map(string => `title:${string}`).join(' AND ');
-
 let getCommentsLink = (link) => `https://reddit.com${link}`
 
 let getDate = (timestamp) => {
@@ -22,11 +19,21 @@ let processData = (rawData) => {
     });
 };
 
-let getQueryForRedditApi = (filter, sortBy) => {
+let getFlairs = _ => ['media', 'mirror'];
+let getUrl = _ => ['streamable', 'streamja', 'clippituser', 'mixtape'];
+
+let orify = (field, list) => list.map(el => `${field}:${el}`).join(' OR ')
+let andify = (field, list) => list.map(el => `${field}:${el}`).join(' AND ')
+
+let getQueryForRedditApi = (searchQuery, sortBy) => {
+    searchQuery = searchQuery.trim()
     url = 'https://api.reddit.com/r/soccer/search?q=';
-    flairs = '(flair:media OR flair:Mirror)';
-    titles = filter.replace(/\s/g, '').length === 0 ? '' : `AND (${constructQuery(filter)})`;
-    return encodeURI(`${url}${flairs}${titles}&restrict_sr=1&sort=${sortBy}&limit=1000`);
+    url += `(${orify('flair', getFlairs())} OR ${orify('url', getUrl())})`;
+    url += searchQuery === "" ? "" : ` AND (${andify('title', searchQuery.split(/\s+/))})`;
+    url += `&restrict_sr=1`
+    url += `&sort=${sortBy}`
+    url += `&limit=1000`;
+    return encodeURI(url);
 };
 
 const app = new Vue({
@@ -36,6 +43,7 @@ const app = new Vue({
         sortBy: 'relevance',
         filter: '',
         posts: '',
+        searching: false,
         footer: [
             {
                 link: 'https://github.com/droidadroit/r-soccer-goals',
@@ -55,9 +63,14 @@ const app = new Vue({
     methods: {
         processForm: function() {
             let vm = this;
+            vm.posts = [];
+            vm.searching = true;
             axios
                 .get(getQueryForRedditApi(this.filter, this.sortBy))
-                .then(response => {vm.posts = processData(response.data);})
+                .then(response => {
+                    vm.posts = processData(response.data);
+                    vm.searching = false;
+                })
                 .catch(error => console.log(error));
         },
 

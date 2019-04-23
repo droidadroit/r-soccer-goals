@@ -31,7 +31,7 @@
 		</form>
 		
 		<transition name="slide-fade" tag="span">
-			<p v-if="typeof(posts) === 'object'" class="numResults">Fetched {{posts.length}} results.</p>
+			<p v-if="typeof(posts) === 'object' && !searching" class="numResults">Fetched {{posts.length}} results.</p>
 		</transition>
 		<transition-group name="list" tag="ul">
 			<li v-for="post in posts" v-bind:key="post" class="list-item">
