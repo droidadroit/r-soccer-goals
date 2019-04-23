@@ -1,7 +1,7 @@
 {
     "name": "r/soccer goals",
     "short_name": "r/soccer goals",
-    "version": "0.0.0.3",
+    "version": "0.0.0.4",
     "description": "Fetches you the goals uploaded on r/soccer.",
     "icons": {
       "16": "icon_16.png",

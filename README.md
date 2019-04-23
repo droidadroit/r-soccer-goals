@@ -2,9 +2,16 @@
 
 [Link to the Chrome extension](https://chrome.google.com/webstore/detail/rsoccer-goals/oledoejmoabfeenmmacihejabhmbhdan)
 
+
+#### Version 0.0.0.4 (Apr 22, 2019)
+- Accented characters (like é, î, etc.) now work.
+- Added footer.
+- A way to know if the serach returns no results.
+- Fixed CSS for the comments anchor tag.
+
 #### Version 0.0.0.3 (Apr 22, 2019)
 - Improved the detection of a submission as goal-related by modifying the regex.
-- Domain name of the videos are now visible.
+- Domain names of the videos are now visible.
 - Added transitions.
 
 #### Version 0.0.0.1 (Apr 21, 2019)
