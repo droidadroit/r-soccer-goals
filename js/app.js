@@ -1,35 +1,26 @@
+import {flairs, domains, regexes} from './constants.js';
+import * as utils from './utils.js';
+
 let getCommentsLink = (link) => `https://reddit.com${link}`
 
-let getDate = (timestamp) => {
-    let d = new Date(timestamp * 1000);
-    return `${d.getDate()} ${d.toLocaleString('en-us', {month: 'short'})} ${d.getFullYear()}`;
-};
-
 let processData = (rawData) => {
-    regexes = [/[\[,\(][0-9]+[\],\)]\s?[-,:]\s?[0-9]+/, /[0-9]+\s?[-,:]\s?[\[,\(][0-9]+[\],\)]/, /[0-9]+\s?[-,:]\s?[0-9]+/];
-    children = rawData.data.children.filter(child => regexes.some(regex => regex.test(child.data.title)));
-    return children.map(child => {
+    let filtered_posts = rawData.data.children.filter(child => regexes.some(regex => regex.test(child.data.title)));
+    return filtered_posts.map(child => {
         return {
             title: child.data.title,
             comments: getCommentsLink(child.data.permalink), 
             link: child.data.url,
-            time: getDate(child.data.created),
+            time: utils.getDate(child.data.created * 1000),
             domain: child.data.domain
         };
     });
 };
 
-let getFlairs = _ => ['media', 'mirror'];
-let getUrl = _ => ['streamable', 'streamja', 'clippituser', 'mixtape'];
-
-let orify = (field, list) => list.map(el => `${field}:${el}`).join(' OR ')
-let andify = (field, list) => list.map(el => `${field}:${el}`).join(' AND ')
-
 let getQueryForRedditApi = (searchQuery, sortBy) => {
     searchQuery = searchQuery.trim()
-    url = 'https://api.reddit.com/r/soccer/search?q=';
-    url += `(${orify('flair', getFlairs())} OR ${orify('url', getUrl())})`;
-    url += searchQuery === "" ? "" : ` AND (${andify('title', searchQuery.split(/\s+/))})`;
+    let url = 'https://api.reddit.com/r/soccer/search?q=';
+    url += `(${utils.orify('flair', flairs)} OR ${utils.orify('url', domains)})`;
+    url += searchQuery === "" ? "" : ` AND (${utils.andify('title', searchQuery.split(/\s+/))})`;
     url += `&restrict_sr=1`
     url += `&sort=${sortBy}`
     url += `&limit=1000`;
@@ -74,14 +65,6 @@ const app = new Vue({
                 .catch(error => console.log(error));
         },
 
-        openLink: function(link) {
-            chrome.tabs.create({
-                url: link,
-                active: false
-            });
-        }
+        openLink: utils.openInNewTab
     }
 });
-
-
-
