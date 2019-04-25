@@ -1,3 +1,5 @@
+import {flairs, domains} from './constants.js';
+
 export let 
     orify = (field, list) => list.map(el => `${field}:${el}`).join(' OR '),
 
@@ -13,4 +15,17 @@ export let
             url: link,
             active: false
         });
+    },
+
+    getCommentsUrlFromPermalink = (permalink) => `https://reddit.com${permalink}`,
+
+    getQueryForRedditApi = (searchQuery, sortBy) => {
+        searchQuery = searchQuery.trim()
+        let url = 'https://api.reddit.com/r/soccer/search?q=';
+        url += `(${orify('flair', flairs)} OR ${orify('url', domains)})`;
+        url += searchQuery === "" ? "" : ` AND (${andify('title', searchQuery.split(/\s+/))})`;
+        url += `&restrict_sr=1`
+        url += `&sort=${sortBy}`
+        url += `&limit=1000`;
+        return encodeURI(url);
     };
