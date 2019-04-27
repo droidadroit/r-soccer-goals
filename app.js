@@ -1,21 +1,18 @@
-import {flairs, domains, regexes} from './constants.js';
-import * as utils from './utils.js';
-
-let getCommentsLink = (link) => `https://reddit.com${link}`
+import {regexes} from './util/constants.js';
+import * as utils from './util/utils.js';
 
 let processData = (rawData) => {
     let filtered_posts = rawData.data.children.filter(child => regexes.some(regex => regex.test(child.data.title)));
     return filtered_posts.map(child => {
         return {
-                title: child.data.title,
-                comments: getCommentsLink(child.data.permalink), 
-                link: child.data.url,
-                time: utils.getDate(child.data.created * 1000),
-                domain: child.data.domain,
-                id: child.data.id,
-                mirrors: null
+            title: child.data.title,
+            comments: utils.getCommentsUrlFromPermalink(child.data.permalink), 
+            link: child.data.url,
+            time: utils.getDate(child.data.created * 1000),
+            domain: child.data.domain,
+            id: child.data.id,
+            mirrors: null
         };
-
     });
 };
 
@@ -30,10 +27,6 @@ let getQueryForRedditApi = (searchQuery, sortBy) => {
     return encodeURI(url);
 };
 
-let processBodyHtml = (html) => {
-    return html.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
-};
-
 let getMirrors = (post_id) => {
     return axios
         .get(encodeURI(`https://api.reddit.com/r/soccer/comments/${post_id}?depth=1&limit=1&sort=top`))
@@ -42,17 +35,21 @@ let getMirrors = (post_id) => {
             return axios
                 .get(encodeURI(`https://api.reddit.com/r/soccer/comments/${post_id}?depth=2&sort=top&comment=${parent_id}`))
                 .then(response => {
-                    let replies = response.data[1].data.children[0].data.replies.data.children; // FIXME: handle when there are no replies to a comment
-                    let body_htmls = replies.map(reply => reply.data.body_html);
                     let mirrors = [];
-                    let htmls = body_htmls.map(body_html => processBodyHtml(body_html));
-                    mirrors = [];
-                    htmls.forEach(html => {
-                        html.replace(/[^<]*(<a href="([^"]+)">([^<]+)<\/a>)/g, function() {
-                            mirrors.push(arguments[2]);
+                    try {
+                        let replies = response.data[1].data.children[0].data.replies.data.children; // FIXME: handle when there are no replies to a comment
+                        let body_htmls = replies.map(reply => reply.data.body_html);
+                        let htmls = body_htmls.map(body_html => utils.processBodyHtml(body_html));
+                        htmls.forEach(html => {
+                            html.replace(/[^<]*(<a href="([^"]+)">([^<]+)<\/a>)/g, function() {
+                                mirrors.push(arguments[2]);
+                            });
                         });
-                    });
-                    return mirrors;
+                    } catch (err) {
+                        console.log(err);
+                    } finally {
+                        return mirrors;
+                    }
                 });
             });
 };
@@ -92,7 +89,7 @@ const app = new Vue({
             vm.posts = [];
             vm.searching = true;
             axios
-                .get(getQueryForRedditApi(this.filter, this.sortBy))
+                .get(utils.getQueryForRedditApi(this.filter, this.sortBy))
                 .then(response => {
                     vm.posts = processData(response.data);
                     vm.searching = false;
