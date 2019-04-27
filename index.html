@@ -3,9 +3,9 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="./static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./static/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./app.css">
 </head>
 
 <body>
@@ -46,6 +46,7 @@
 				</div>
 			</li>
 		</transition-group>
+		<br>
 
 		<div class="footer">
 			<a v-for="item in footer" :href="item.link" v-on:click="openLink(item.link)">{{item.text}}</a>
@@ -53,11 +54,11 @@
 		
 	</div>
 
-	<script src="js/static/popper.min.js"></script>
-	<script src="js/static/bootstrap.min.js"></script>
-	<script src="js/static/vue.min.js"></script>
-	<script src="js/app.js" type="module"></script>
-	<script src="js/static/axios.min.js" ></script>
+	<script src="./static/js/popper.min.js"></script>
+	<script src="./static/js/bootstrap.min.js"></script>
+	<script src="./static/js/vue.min.js"></script>
+	<script src="./app.js" type="module"></script>
+	<script src="./static/js/axios.min.js" ></script>
 </body>
 
 </html>

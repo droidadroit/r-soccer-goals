@@ -1,5 +1,5 @@
-import {regexes} from './constants.js';
-import * as utils from './utils.js';
+import {regexes} from './util/constants.js';
+import * as utils from './util/utils.js';
 
 let processData = (rawData) => {
     let filtered_posts = rawData.data.children.filter(child => regexes.some(regex => regex.test(child.data.title)));
