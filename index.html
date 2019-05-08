@@ -59,6 +59,7 @@
 
 		<div class="footer">
 			<a v-for="item in footer" :href="item.link" v-on:click="openLink(item.link)">{{item.text}}</a>
+			<a href="" v-on:click="openSettings()">Settings</a>
 		</div>
 		
 	</div>

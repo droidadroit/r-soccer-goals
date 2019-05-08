@@ -1,4 +1,5 @@
-import * as utils from './util/utils.js';
+import * as utils from './util/utils.js'
+import * as constants from './util/constants.js'
 import * as postsApi from './api/posts.js'
 import * as mirrorsApi from './api/mirrors.js'
 
@@ -6,7 +7,7 @@ const app = new Vue({
     el: '#app',
 
     data: {
-        sortBy: 'relevance',
+        sortBy: constants.defaultOptionsValues.sortBy,
         filter: '',
         posts: '',
         searching: false,
@@ -16,14 +17,14 @@ const app = new Vue({
                 text: 'Github'
             },
             {
-                link: 'https://chrome.google.com/webstore/detail/rsoccer-goals/oledoejmoabfeenmmacihejabhmbhdan',
-                text: 'r/soccer goals'
-            },
-            {
                 link: 'mailto:yashwanth.reddyth@gmail.com?subject=%5Br/soccer%20goals%5D',
                 text: 'Help'
             }
         ]
+    },
+
+    mounted: function() {
+        utils.getOptionsValue('sortBy').then(data => this.sortBy = data);
     },
 
     methods: {
@@ -40,8 +41,6 @@ const app = new Vue({
                 });
         },
 
-        openLink: utils.openInNewTab,
-
         loadMirrors: function(id) {
             let vm = this;
             if (vm.posts.filter(post => post.id === id)[0].mirrors === null) {
@@ -49,6 +48,10 @@ const app = new Vue({
                     utils.assignMirrors(data, vm.posts, id);
                 });
             }
-        }
+        },
+
+        openLink: utils.openInNewTab,
+
+        openSettings: utils.openSettings
     }
 });
