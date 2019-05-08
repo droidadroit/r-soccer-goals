@@ -31,7 +31,7 @@ const app = new Vue({
             let vm = this;
             vm.posts = [];
             vm.searching = true;
-            postsApi.getPosts(vm.filter, vm.sortby)
+            postsApi.getPosts(vm.filter, vm.sortBy)
                 .then(data => {
                     vm.posts = data;
                 })

@@ -2,9 +2,9 @@ import * as utils from './../util/utils.js'
 import {regexes} from './../util/constants.js'
 
 export let
-    getPosts = (filter, sortby) => {
+    getPosts = (filter, sortBy) => {
         return axios
-            .get(utils.getQueryForRedditApi(filter, sortby))
+            .get(utils.getQueryForRedditApi(filter, sortBy))
             .then(response => processData(response.data));
     };
 
