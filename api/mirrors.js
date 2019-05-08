@@ -10,15 +10,23 @@ export let
                 let parentCommentId = topComment.id,
                     parentCommentAuthor = topComment.author;
                 
-                if (parentCommentAuthor === constants.mirrorsAuthor) {
-                    return fetchMirrorsOfAutoModerator(postId, parentCommentId).then(data => data);
-                } else {
-                    // get top K parent comments
-                    // check for the presence of links
-                }
-
+                return (
+                    (parentCommentAuthor === constants.mirrorsAuthor) ? fetchMirrorsOfAutoModerator(postId, parentCommentId) : fetchMirrorsWithNoAutoModerator(postId)
+                ).then(data => data);
             });
     };
+
+let fetchMirrorsFromComments = (comments) => {
+    let mirrors = [];
+    let body_htmls = comments.map(reply => reply.data.body_html);
+    let htmls = body_htmls.map(body_html => utils.processBodyHtml(body_html));
+    htmls.forEach(html => {
+        html.replace(/[^<]*(<a href="([^"]+)">([^<]+)<\/a>)/g, function() {
+            mirrors.push(arguments[2]);
+        });
+    });
+    return mirrors;
+};
 
 let fetchMirrorsOfAutoModerator = (postId, parentCommentId) => {
     return axios
@@ -26,14 +34,27 @@ let fetchMirrorsOfAutoModerator = (postId, parentCommentId) => {
         .then(response => {
             let mirrors = [];
             try {
-                let replies = response.data[1].data.children[0].data.replies.data.children; // FIXME: handle when there are no replies to a comment
-                let body_htmls = replies.map(reply => reply.data.body_html);
-                let htmls = body_htmls.map(body_html => utils.processBodyHtml(body_html));
-                htmls.forEach(html => {
-                    html.replace(/[^<]*(<a href="([^"]+)">([^<]+)<\/a>)/g, function() {
-                        mirrors.push(arguments[2]);
-                    });
-                });
+                let replies = response.data[1].data.children[0].data.replies.data.children;
+                mirrors = fetchMirrorsFromComments(replies);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                return mirrors;
+            }
+        });
+};
+
+let fetchMirrorsWithNoAutoModerator = (postId) => {
+    return axios
+        .get(encodeURI(`https://api.reddit.com/r/soccer/comments/${postId}?depth=1&sort=top&limit=${constants.maxNumOfCommentsForMirrors}`))
+        .then(response => {
+            let mirrors = [];
+            try {
+                let replies = response.data[1].data.children;
+                replies.pop()
+                let repliesWithMirrors = replies.filter(reply =>
+                    constants.keywordsForMirrorComments.some(keyword => reply.data.body.includes(keyword)));
+                mirrors = fetchMirrorsFromComments(repliesWithMirrors);
             } catch (err) {
                 console.log(err);
             } finally {

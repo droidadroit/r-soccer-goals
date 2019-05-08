@@ -2,4 +2,6 @@ export const
     flairs = ['media', 'mirror'],
     domains = ['streamable', 'streamja', 'clippituser', 'mixtape'],
     regexes = [/[\[,\(][0-9]+[\],\)]\s?[-,:]\s?[0-9]+/, /[0-9]+\s?[-,:]\s?[\[,\(][0-9]+[\],\)]/, /[0-9]+\s?[-,:]\s?[0-9]+/],
-    mirrorsAuthor = 'AutoModerator';
+    mirrorsAuthor = 'AutoModerator',
+    keywordsForMirrorComments = ['Mirror', 'AA', 'Replay', 'Alternate angle'],
+    maxNumOfCommentsForMirrors = 15;

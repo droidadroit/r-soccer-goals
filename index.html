@@ -41,7 +41,7 @@
 					</h6>
 					<div>
 						<div class="dropdown fields">
-							<span class="dropbtn" @mouseover="loadMirrors(post.id)">Mirrors {{post.mirrors == null ?  '' : `(${post.mirrors.length})`}}</span>
+							<span class="dropbtn" @mouseover="loadMirrors(post.id)">Mirrors {{post.mirrors == null ?  ':(' : `(${post.mirrors.length})`}}</span>
 							<div class="dropdown-content" v-if="post.mirrors === null">
 								<span style="padding: 10px;">Loading...</span>
 							</div>
