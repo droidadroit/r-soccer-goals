@@ -30,4 +30,9 @@ export let
         return encodeURI(url);
     },
 
-    processBodyHtml = (html) => html.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+    processBodyHtml = (html) => html.replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
+
+    assignMirrors = (mirrors, posts, id) => {
+        let obj = posts.filter(post => post.id === id);
+        obj[0]['mirrors'] = mirrors;
+    };
