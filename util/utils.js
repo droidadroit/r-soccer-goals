@@ -28,4 +28,11 @@ export let
         url += `&sort=${sortBy}`
         url += `&limit=1000`;
         return encodeURI(url);
+    },
+
+    processBodyHtml = (html) => html.replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
+
+    assignMirrors = (mirrors, posts, id) => {
+        let obj = posts.filter(post => post.id === id);
+        obj[0]['mirrors'] = mirrors;
     };

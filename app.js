@@ -1,6 +1,6 @@
-import {regexes} from './util/constants.js';
 import * as utils from './util/utils.js';
 import * as postsApi from './api/posts.js'
+import * as mirrorsApi from './api/mirrors.js'
 
 const app = new Vue({
     el: '#app',
@@ -40,6 +40,15 @@ const app = new Vue({
                 });
         },
 
-        openLink: utils.openInNewTab
+        openLink: utils.openInNewTab,
+
+        loadMirrors: function(id) {
+            let vm = this;
+            if (vm.posts.filter(post => post.id === id)[0].mirrors === null) {
+                mirrorsApi.getMirrors(id).then(data => {
+                    utils.assignMirrors(data, vm.posts, id);
+                });
+            }
+        }
     }
 });

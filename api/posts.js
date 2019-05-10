@@ -16,7 +16,9 @@ let processData = (rawData) => {
             comments: utils.getCommentsUrlFromPermalink(child.data.permalink), 
             link: child.data.url,
             time: utils.getDate(child.data.created * 1000),
-            domain: child.data.domain
+            domain: child.data.domain,
+            id: child.data.id,
+            mirrors: null
         };
     });
 };

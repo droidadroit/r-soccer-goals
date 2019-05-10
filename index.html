@@ -34,12 +34,21 @@
 			<p v-if="typeof(posts) === 'object' && !searching" class="numResults">Fetched {{posts.length}} results.</p>
 		</transition>
 		<transition-group name="list" tag="ul">
-			<li v-for="post in posts" v-bind:key="post" class="list-item">
+			<li v-for="post in posts" v-bind:key="post.id" class="list-item">
 				<div class="info">
 					<h6 class="title">
 						<a :href="post.link" v-on:click="openLink(post.link)">{{post.title}}</a>&nbsp;<span style="font-size:xx-small; font-weight:normal;">{{post.domain}}</span>
 					</h6>
 					<div>
+						<div class="dropdown fields">
+							<span class="dropbtn" @mouseover="loadMirrors(post.id)">Mirrors {{post.mirrors == null ?  ':(' : `(${post.mirrors.length})`}}</span>
+							<div class="dropdown-content" v-if="post.mirrors === null">
+								<span style="padding: 10px;">Loading...</span>
+							</div>
+							<div class="dropdown-content" v-else>
+								<a v-for="mirror in post.mirrors" v-bind:key="mirror" :href="mirror" v-on:click="openLink(mirror)">{{mirror}}</a> 
+							</div>
+						</div>
 						<a class="fields" :href="post.comments" v-on:click="openLink(post.comments)"><span>Comments</span></a>
 						<span class="fields">{{post.time}}</span>
 					</div>
