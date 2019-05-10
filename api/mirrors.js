@@ -1,4 +1,4 @@
-import * as utils from './../util/utils.js'
+import * as utils from '../util/functions.js'
 import * as constants from './../util/constants.js'
 
 export let
