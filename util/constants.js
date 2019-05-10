@@ -15,4 +15,4 @@ export const
     
     keywordsForMirrorComments = ['Mirror', 'AA', 'Replay', 'Alternat', 'Angle'],
     
-    maxNumOfCommentsForMirrors = 15;
+    maxNumOfCommentsForMirrors = 50;
