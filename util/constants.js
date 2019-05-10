@@ -1,4 +1,7 @@
-export const 
+export const
+    defaultOptionsValues = {
+        'sortBy': 'relevance'
+    },
     flairs = ['media', 'mirror'],
     
     domains = ['streamable', 'streamja', 'clippituser', 'mixtape'],

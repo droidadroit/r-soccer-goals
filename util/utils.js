@@ -1,4 +1,4 @@
-import {flairs, domains} from './constants.js';
+import {flairs, domains, defaultOptionsValues} from './constants.js';
 
 export let 
     orify = (field, list) => list.map(el => `${field}:${el}`).join(' OR '),
@@ -16,6 +16,20 @@ export let
             active: false
         });
     },
+
+    openSettings = _ => {
+        if (chrome.runtime.openOptionsPage) {
+        	chrome.runtime.openOptionsPage();
+        } else {
+        	window.open(chrome.runtime.getURL('options.html'));
+        }
+	},
+
+	getOptionsValue = (option) => new Promise((resolve, _) => {
+		chrome.storage.sync.get(option, result => {
+			resolve((option in result ? result : defaultOptionsValues)[option]);
+		});
+	}),
 
     getCommentsUrlFromPermalink = (permalink) => `https://reddit.com${permalink}`,
 
