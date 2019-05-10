@@ -1,5 +1,5 @@
 import * as utils from './../util/utils.js'
-import {regexes} from './../util/constants.js'
+import {regexesForPostTitle} from './../util/constants.js'
 
 export let
     getPosts = (filter, sortBy) => {
@@ -9,7 +9,7 @@ export let
     };
 
 let processData = (rawData) => {
-    let filtered_posts = rawData.data.children.filter(child => regexes.some(regex => regex.test(child.data.title)));
+    let filtered_posts = rawData.data.children.filter(child => regexesForPostTitle.some(regex => regex.test(child.data.title)));
     return filtered_posts.map(child => {
         return {
             title: child.data.title,

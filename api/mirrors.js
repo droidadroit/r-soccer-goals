@@ -25,7 +25,7 @@ let fetchMirrorsFromComments = (comments) => {
             mirrors.push(arguments[2]);
         });
     });
-    return mirrors;
+    return mirrors.filter(mirror => constants.regexForUrl.test(mirror));
 };
 
 let fetchMirrorsOfAutoModerator = (postId, parentCommentId) => {
@@ -53,7 +53,7 @@ let fetchMirrorsWithNoAutoModerator = (postId) => {
                 let replies = response.data[1].data.children;
                 replies.pop()
                 let repliesWithMirrors = replies.filter(reply =>
-                    constants.keywordsForMirrorComments.some(keyword => reply.data.body.includes(keyword)));
+                    constants.keywordsForMirrorComments.some(keyword => reply.data.body.toLowerCase().includes(keyword.toLowerCase())));
                 mirrors = fetchMirrorsFromComments(repliesWithMirrors);
             } catch (err) {
                 console.log(err);
