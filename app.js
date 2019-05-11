@@ -10,6 +10,7 @@ const app = new Vue({
         sortBy: constants.defaultOptionsValues.sortBy,
         filter: '',
         posts: '',
+        previousSearch: '',
         searching: false,
         footer: [
             {
@@ -24,7 +25,8 @@ const app = new Vue({
     },
 
     mounted: function() {
-        utils.getOptionsValue('sortBy').then(data => this.sortBy = data);
+        utils.getOptionValue('sortBy').then(data => this.sortBy = data);
+        utils.getPreviousSearch().then(data => this.previousSearch = data);
     },
 
     methods: {
@@ -35,10 +37,22 @@ const app = new Vue({
             postsApi.getPosts(vm.filter, vm.sortBy)
                 .then(data => {
                     vm.posts = data;
+                    utils.setOptionValue({
+                        previousQuery: {
+                            sortBy: vm.sortBy,
+                            query: vm.filter
+                        }
+                    });
                 })
                 .finally(_ => {
                     vm.searching = false;
                 });
+        },
+
+        recentSearch: function() {
+            this.filter = this.previousSearch.query,
+            this.sortBy = this.previousSearch.sortBy; 
+            this.processForm();
         },
 
         loadMirrors: function(id) {

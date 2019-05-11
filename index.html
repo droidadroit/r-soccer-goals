@@ -29,10 +29,15 @@
 				<button type="submit" class="btn btn-small btn-sm"><i class="fa fa-search"></i></button>
 			</div>		
 		</form>
+
+		<div v-if="posts === ''" class="previousSearch">
+			<a href="" v-on:click.prevent="recentSearch()">Previous search: "{{previousSearch.query}}" sorted by {{previousSearch.sortBy}}.</a>
+		</div>
 		
 		<transition name="slide-fade" tag="span">
 			<p v-if="typeof(posts) === 'object' && !searching" class="numResults">Fetched {{posts.length}} results.</p>
 		</transition>
+
 		<transition-group name="list" tag="ul">
 			<li v-for="post in posts" v-bind:key="post.id" class="list-item">
 				<div class="info">

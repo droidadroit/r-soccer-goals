@@ -10,15 +10,15 @@ const options = new Vue({
     },
 
     mounted: function() {
-        utils.getOptionsValue('sortBy').then(data => this.sortBy = data);
+        utils.getOptionValue('sortBy').then(data => this.sortBy = data);
     },
 
     methods: {
         saveOptions: function() {
-            this.save = false;
-            chrome.storage.sync.set({
+            this.saved = false;
+            utils.setOptionValue({
                 sortBy: this.sortBy
-            }, _ => {
+            }).then(_ => {
                 this.saved = true;
             });
         }

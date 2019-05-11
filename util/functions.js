@@ -25,11 +25,15 @@ export let
         }
 	},
 
-	getOptionsValue = (option) => new Promise((resolve, _) => {
+	getOptionValue = (option) => new Promise((resolve, _) => {
 		chrome.storage.sync.get(option, result => {
 			resolve((option in result ? result : defaultOptionsValues)[option]);
 		});
-	}),
+    }),
+    
+    setOptionValue = (value) => new Promise((resolve, _) => {
+        chrome.storage.sync.set(value, result => resolve(result));
+    }),
 
     getCommentsUrlFromPermalink = (permalink) => `https://reddit.com${permalink}`,
 
@@ -49,4 +53,6 @@ export let
     assignMirrors = (mirrors, posts, id) => {
         let obj = posts.filter(post => post.id === id);
         obj[0]['mirrors'] = mirrors;
-    };
+    },
+    
+    getPreviousSearch = _ => getOptionValue('previousQuery');
