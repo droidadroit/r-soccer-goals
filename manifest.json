@@ -1,7 +1,7 @@
 {
     "name": "r/soccer goals",
     "short_name": "r/soccer goals",
-    "version": "0.0.0.5",
+    "version": "0.0.1.0",
     "description": "Fetches you the goals uploaded on r/soccer.",
     "icons": {
       "16": "./images/icons/icon_16.png",
@@ -11,8 +11,8 @@
     "incognito": "split",
     "manifest_version": 2,
     "browser_action": {
-      "default_icon": "./images/icons/icon_16.png",
-      "default_popup": "index.html"
+		"default_icon": "./images/icons/icon_16.png",
+		"default_popup": "index.html"
 	},
 	"permissions": [
 		"storage"
