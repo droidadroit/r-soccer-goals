@@ -1,3 +1,8 @@
+a {
+    color: #0062cc;
+    font-weight: bold;
+}
+
 #searchForm .select {
     padding: 10px;
     float: left;
@@ -41,6 +46,13 @@
     margin-top: 0px;
 }
 
+#app .previousSearch a {
+    font-size: x-small;
+    font-weight: bold;
+    margin-left: 10px;
+    display: inline-block;
+}
+
 #app ul {
     margin: 0px;
     padding: 0px;
@@ -62,11 +74,10 @@
 li span,
 .fields {
     font-size: 14px;
-    color: black;
 }
 
 .fields {
-    margin-right: 65px;
+    margin-right: 60px;
     padding-right: 10px;
     padding-left: 10px;
 }
@@ -123,7 +134,6 @@ li span,
 }
 
 .footer a {
-    color: black;
     margin-right: 40px;
     margin-left: 40px;
     font-weight: bold;
@@ -147,7 +157,6 @@ li span,
 }
 
 .dropdown-content a {
-    color: black;
     font-weight: bold;
     padding: 8px 16px;
     text-decoration: none;
