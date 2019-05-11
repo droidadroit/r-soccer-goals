@@ -18,6 +18,7 @@ a {
     height: 35px;
     width: 250px;
     display: inline-block;
+
 }
 
 #searchForm .submit {
@@ -33,8 +34,8 @@ a {
 
 #searchForm .select *,
 #searchForm .search * {
-    font-size: xx-small;
-    font-weight: bold;
+    font-size: small;
+    /* font-weight: bold; */
     color: black;
 }
 
@@ -48,8 +49,9 @@ a {
 
 #app .previousSearch a {
     font-size: x-small;
-    font-weight: bold;
+    font-weight: normal;
     margin-left: 10px;
+    margin-top: 10px;
     display: inline-block;
 }
 
@@ -62,13 +64,13 @@ a {
 #app ul li {
     padding: 10px;
     margin: 10px;
-    background-color: rgb(245, 245, 245);
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    background-color: rgb(253, 253, 253);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
     -webkit-box-shadow: 0px 0px 2px #888888;
     -moz-box-shadow: 0px 0px 2px #888888;
-    box-shadow: 0px 0px 2px #888888;
+    box-shadow: 0px 0px 2px #b6b6b6;
 }
 
 li span,
@@ -89,7 +91,7 @@ li span,
 .title a {
     font-size: 0.8rem;
     font-weight: 500;
-    line-height: 1.2;
+    line-height: 1.5;
     color: black;
 }
 
@@ -157,14 +159,14 @@ li span,
 }
 
 .dropdown-content a {
-    font-weight: bold;
-    padding: 8px 16px;
+    font-weight: normal;
+    padding: 0px 0px;
     text-decoration: none;
     display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1
+    background-color: #cfcfcf
 }
 
 .dropdown:hover .dropdown-content {
@@ -176,5 +178,5 @@ li span,
 }
 
 ::-webkit-input-placeholder {
-    font-size: x-small;
+    font-size: small;
 }
