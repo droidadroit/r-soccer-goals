@@ -30,7 +30,7 @@
 			</div>		
 		</form>
 
-		<div v-if="posts === ''" class="previousSearch">
+		<div v-if="!posts && previousSearch" class="previousSearch">
 			<a href="" v-on:click.prevent="recentSearch()">Previous search: "{{previousSearch.query}}" sorted by {{previousSearch.sortBy}}.</a>
 		</div>
 		
