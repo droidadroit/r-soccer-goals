@@ -5,8 +5,9 @@ export let
 
     andify = (field, list) => list.map(el => `${field}:${el}`).join(' AND '),
 
-    getDate = (timestamp) => {
-        let d = new Date(timestamp);
+    getDate = (timestamp_utc_s) => {
+        let offset_s = new Date().getTimezoneOffset() * 60,
+            d = new Date((timestamp_utc_s - offset_s) * 1000);
         return `${d.getDate()} ${d.toLocaleString('en-us', {month: 'short'})} ${d.getFullYear()}`;
     },
 

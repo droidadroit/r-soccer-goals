@@ -15,7 +15,7 @@ let processData = (rawData) => {
             title: child.data.title,
             comments: utils.getCommentsUrlFromPermalink(child.data.permalink), 
             link: child.data.url,
-            time: utils.getDate(child.data.created * 1000),
+            time: utils.getDate(child.data.created_utc),
             domain: child.data.domain,
             id: child.data.id,
             mirrors: null
